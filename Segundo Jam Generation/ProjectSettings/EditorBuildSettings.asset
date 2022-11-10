@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Models/Bear/Demo_Animals/Bear_DEMO.unity
+    path: Assets/Scenes/Boot.unity
     guid: 2dcd9d045d59ab744bc20f767072587f
+  - enabled: 1
+    path: Assets/Scenes/Demo.unity
+    guid: 32195143b40cdd64db0af62b005f2ab0
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 0b5e318ce5847144785e130760e5d2db, type: 2}

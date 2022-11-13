@@ -67,8 +67,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveController: {fileID: 2410549712588930098}
   animationController: {fileID: 2410549712588930100}
-  IsActive: 1
   cinemachineCamera: {fileID: 2410549712588930097}
+  healt: {fileID: 2410549712588930101}
+  timeWaitingDamage: 5
+  isInvulnerable: 0
+  IsActive: 1
   currentTimeSpawn: 0
   timeAttack: 10
 --- !u!114 &2410549712588930098
@@ -83,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba158ff05cf30224f94bfdddec8e7635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 12
   m_jumpForce: 4
   m_rigidBody: {fileID: 3597275475981461486}
   m_currentDirection: {x: 0, y: 0, z: 0}
@@ -93,8 +96,7 @@ MonoBehaviour:
   m_isGrounded: 0
   m_wasGrounded: 0
   m_moveSpeedV: 0
-  m_turnSpeed: 0
-  tr: {fileID: 0}
+  m_turnSpeed: 10
   speedRoll: 0
 --- !u!114 &2410549712588930097
 MonoBehaviour:
@@ -121,8 +123,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2, z: 3.5424166}
+  m_Center: {x: -9.0051766e-10, y: 1.0305653, z: -0.14232554}
 --- !u!1001 &4166783330066716324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -164,15 +166,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -180,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 176.522
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -534,6 +536,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -8.214659
       objectReference: {fileID: 0}
+    - target: {fileID: 5531129298276611732, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531129298276611732, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5796622777058460566, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -26.636435
@@ -569,6 +579,18 @@ PrefabInstance:
     - target: {fileID: 6268757669443346781, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 12.202726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287183356481304206, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287183356481304206, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287183356481304206, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
+      propertyPath: m_SkinnedMotionVectors
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6498284118089505962, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -686,6 +708,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animator: {fileID: 7546334184095476533}
+--- !u!114 &2410549712588930101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824130635650853877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8e36d497b6bff489f65b359fe86164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 100
 --- !u!4 &4492861941938139471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}

@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-            ScenesManager.Instance.Pause();
+            ScenesManager.Instance?.Pause();
         }
     }
 }

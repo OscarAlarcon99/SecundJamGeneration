@@ -6,11 +6,13 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Variable que almacena la velocidad del movimiento
     /// </summary>
-    [SerializeField] private float moveSpeed = 2;
+    [SerializeField] 
+    private float moveSpeed = 12;
     /// <summary>
     /// Variable que almacena la fuerza del salto
     /// </summary>
-    [SerializeField] private float m_jumpForce = 4;
+    [SerializeField] 
+    private float m_jumpForce = 4;
     /// <summary>
     /// Cuerpo Rigido del player
     /// </summary>
@@ -30,10 +32,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private readonly float m_interpolation = 10;
 
-    /// <summary>
-    /// Variable que almacena la lecutura de la Velocidad caminando
-    /// </summary>
-    private readonly float m_walkScale = 0.33f;
     /// <summary>
     /// Variable que almacena vector por donde nos hemos movido
     /// </summary>
@@ -62,17 +60,18 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Variable que almacena bool de si el player esta en el aire
     /// </summary>
-    [SerializeField]
     private bool m_wasGrounded;
     /// <summary>
     /// Listado que almacena objetos donde toco suelo
     /// </summary>
-    private List<Collider> m_collisions = new List<Collider>();
     [SerializeField]
-    private float m_moveSpeedV;
+    private List<Collider> m_collisions = new List<Collider>();
+
     [SerializeField]
     private float m_turnSpeed;
-    public float speedRoll;
+    public float speeIsInteracting;
+
+    private bool comboFlag;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -176,13 +175,16 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     }
 
-    private void FixedUpdate()
+    public void HandleActions()
     {
-        DirectUpdate();
+        if (!Player.Instance.isActive)
+            return;
+
         #region Control de Salto
 
         // envio a controlador de animacion del bool si toca el piso 
         Player.Instance.animationController.m_animator.SetBool("Grounded", m_isGrounded);
+        Debug.Log("isgrounded" + m_isGrounded);
 
         //Actualizacion de bool de aire
         m_wasGrounded = m_isGrounded;
@@ -190,21 +192,102 @@ public class PlayerMovement : MonoBehaviour
         // ajuste de variable de input a falso 
         m_jumpInput = false;
 
+        if (Input.GetButtonDown("Jump") && m_isGrounded &&
+            !Player.Instance.isInteracting)
+        {
+            m_jumpInput = true;
+        }
+
+        #endregion
+
+        #region Control de Attackes
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+
+            if (!m_isGrounded && !Player.Instance.attackAir)
+            {
+                Player.Instance.animationController.m_animator.SetBool("AttackAir", true);
+                Player.Instance.animationController.m_animator.SetInteger("AttackIndex", 0);
+                Player.Instance.animationController.m_animator.SetTrigger("Attack");
+                return;
+            }
+
+            if (Player.Instance.canDoCombo)
+            {
+                comboFlag = true;
+                AttackCombo();
+                comboFlag = false;
+            }
+            else
+            {
+                if (Player.Instance.animationController.m_animator.GetBool("IsInteracting") || 
+                    Player.Instance.attackAir || Player.Instance.canDoCombo) return;
+
+                Player.Instance.animationController.m_animator.SetBool("IsInteracting", true);
+                Player.Instance.animationController.m_animator.SetInteger("AttackIndex", 1);
+                Player.Instance.animationController.m_animator.SetTrigger("Attack");
+            }
+        }
+
+        #endregion
+
+        #region Control de Sigilo
+
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            Debug.Log("XD");
+            ChangeVelocity(!Player.Instance.isStealth);
+        }
+        else
+        {
+            ChangeVelocity(Player.Instance.isStealth);
+        }
+
         #endregion
     }
 
-    public void HandleActions()
+    void AttackCombo()
     {
-        if (Player.Instance.animationController.m_animator.GetBool("IsInteracting"))
-            return;
-        
-        if (Input.GetButtonDown("Attack") && Player.Instance.currentTimeSpawn > Player.Instance.timeAttack)
+        if (comboFlag)
         {
-            Player.Instance.animationController.SendAnimationReaction(1);
+            Player.Instance.animationController.m_animator.SetBool("CanDoCombo", false);
+
+            if (Player.Instance.animationController.m_animator.GetInteger("AttackIndex") == 1)
+            {
+                Player.Instance.animationController.m_animator.SetInteger("AttackIndex", 2);
+                Player.Instance.animationController.m_animator.SetTrigger("Attack");
+                return;
+            }
+
+            if (Player.Instance.animationController.m_animator.GetInteger("AttackIndex") == 2)
+            {
+                if (!Player.Instance.canDoCombo)
+                    return;
+                Player.Instance.animationController.m_animator.SetInteger("AttackIndex", 3);
+                Player.Instance.animationController.m_animator.SetTrigger("Attack");
+                return;
+            }
         }
     }
+
+    public void ChangeVelocity(bool stealthState)
+    {
+        if (!stealthState)
+        {
+            moveSpeed = 12;
+            Player.Instance.isStealth = false;
+        }
+        else
+        {
+            moveSpeed = 5;
+            Player.Instance.isStealth = true;
+        }
+    }
+
+
     /// <summary>
-    /// Funcion encargada de activar punto de daño en la espada
+    /// Funcion encargada de activar punto de daño en attack
     /// </summary>
     public void ChangeAttackPointState()
     {
@@ -214,10 +297,10 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Funcion encargada de calcular y aplicar nueva direccion al jugador
     /// </summary>
-    private void DirectUpdate()
+    public void DirectUpdate()
     {
-        if (!Player.Instance.animationController.m_animator.GetBool("IsInteracting") 
-            && Player.Instance.IsActive) 
+        if (!Player.Instance.isInteracting 
+            && Player.Instance.isActive) 
         {
             //Lectura de input vertical
             float v = Input.GetAxis("Vertical");

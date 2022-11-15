@@ -11,7 +11,6 @@ public class DialogueController : MonoBehaviour
 
     Queue<string> sentences;
     Dialogue newDialogue;
-    int index;
 
     public bool inPlaying;
     public GameObject panelDialogue;
@@ -59,7 +58,6 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        index++;
 
         ChangeStateBoxDialogue();
         
@@ -86,7 +84,6 @@ public class DialogueController : MonoBehaviour
     public void EndDialogue()
     {
         panelDialogue.SetActive(false);
-        index = 0;
         inPlaying = false;
         sentences.Clear();
         panelDialogue.SetActive(false);

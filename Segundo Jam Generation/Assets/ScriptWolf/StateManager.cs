@@ -10,25 +10,38 @@ public class StateManager : MonoBehaviour
     public State currenState;
     public AttackState attack;
     public IdleState idle;
-    public float healt = 100;
+    public float healt;
+    public bool damage;
     public Animator anim;
     public NavMeshAgent wolf;
     public Transform[] pointsWolf;
-  
+    public DamageState damageState;
+    public bool isActivate;
     
-
+  
         void Start()
     {
         wolf = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        healt = 100;
         
     }
   
     void Update()
-    {
+    {   
+        if(!isActivate)
+        {
+            return;
+        }
         RunstateMachine();
-
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            damage = true;
+            healt -= 20;
+            anim.SetBool("Damage", true);
+        }
        // _wolf.SetDestination(point.position);
+
     }
 
     private void RunstateMachine()
@@ -41,7 +54,7 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    private void SwitchToTheNextState(State nextState)
+    public void SwitchToTheNextState(State nextState)
     {
         currenState = nextState;
        
@@ -58,6 +71,8 @@ public class StateManager : MonoBehaviour
         {   
           playerPosition = other.gameObject;
         }
+
+       
     }
 
     private void OnTriggerExit(Collider other) 
@@ -66,6 +81,21 @@ public class StateManager : MonoBehaviour
         {   
           playerPosition = null;
         }
+    }
+
+    private void FixedUpdate()
+    {  
+        if (healt <= 0)
+        {
+            Death();
+        }
+    }
+     void Death()
+    {   
+
+        anim.SetTrigger("Death");
+        isActivate =false;
+        
     }
 
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - PlayerAttack
+  - Osico
+  - Body
   layers:
   - Default
   - TransparentFX

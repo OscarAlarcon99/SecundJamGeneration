@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class IdleState : State
 {   
    
-    public bool playerIsStelth;
+    
     int waypointIndex;
     Vector3 target;
 
@@ -26,15 +26,19 @@ public class IdleState : State
     public override State RunCurrentState()
     {   
         triggerPoint(); 
+     
         if(brain.playerPosition != null)
         {
-           // playerIsStelth = Player.Instance.isStelth;
-        }
-   
-        if(!playerIsStelth)
-        {
-            playerIsStelth = false;
-            return brain.attack;
+            if(!Player.Instance.isStealth)
+            {
+                return brain.attack;
+            }
+            
+            else
+            {
+                return this;
+            }
+            
         }
         else
         {

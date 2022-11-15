@@ -32,9 +32,10 @@ public class AttackState : State
 
     void Attack()
     {
-        if(currentAttackTime>waitAttackTime)
+        if(currentAttackTime > waitAttackTime)
         {
-            brain.anim.SetBool("Attack", true);
+            Debug.Log("Ssssss");
+            brain.anim.SetTrigger("Attack");
             currentAttackTime = 0;
         }
 

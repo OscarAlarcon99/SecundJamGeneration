@@ -8,8 +8,8 @@ public class StateManager : MonoBehaviour
     //Brain
     public GameObject playerPosition;
     public State currenState;
-    public State attack;
-    public State idle;
+    public AttackState attack;
+    public IdleState idle;
     public float healt = 100;
     public Animator anim;
     public NavMeshAgent wolf;
@@ -44,6 +44,11 @@ public class StateManager : MonoBehaviour
     private void SwitchToTheNextState(State nextState)
     {
         currenState = nextState;
+       
+        if (nextState == idle)
+        {
+            idle.UpdateDestination();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,18 +57,14 @@ public class StateManager : MonoBehaviour
         if(other.CompareTag("Player") && playerPosition == null )
         {   
           playerPosition = other.gameObject;
-            
         }
-
-        
     }
 
     private void OnTriggerExit(Collider other) 
     {
-          if(other.CompareTag("Player") && playerPosition != null )
+        if(other.CompareTag("Player") && playerPosition != null )
         {   
           playerPosition = null;
-            
         }
     }
 

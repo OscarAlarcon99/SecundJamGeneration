@@ -5,24 +5,23 @@ using UnityEngine.AI;
 
 public class IdleState : State
 {   
-   
-    
     int waypointIndex;
     Vector3 target;
 
-    void Start(){
+    void Start()
+    {
         UpdateDestination();
     }
 
     public void triggerPoint()
     {   
-          if(Vector3.Distance(transform.position, target) < 1)
+          if(Vector3.Distance(transform.position, target) < brain.wolf.stoppingDistance)
         {
             IteratedWaypointIndex();
             UpdateDestination();
         }
-         
     }
+
     public override State RunCurrentState()
     {   
         triggerPoint(); 
@@ -33,24 +32,23 @@ public class IdleState : State
             {
                 return brain.attack;
             }
-            
             else
             {
                 return this;
             }
-            
         }
         else
         {
              return this;
         }
-      
     }
-    void UpdateDestination()
+    
+    public void UpdateDestination()
     {
         target = brain.pointsWolf[waypointIndex].position;
         brain.wolf.SetDestination(target);
     }
+    
     void IteratedWaypointIndex()
     {
         waypointIndex++;

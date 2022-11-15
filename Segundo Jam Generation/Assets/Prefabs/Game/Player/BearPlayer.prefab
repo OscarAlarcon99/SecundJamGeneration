@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7570815809184895414}
   m_Layer: 0
   m_Name: BearPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,14 +68,15 @@ MonoBehaviour:
   healtController: {fileID: 2410549712588930101}
   moveController: {fileID: 2410549712588930098}
   animationController: {fileID: 2410549712588930100}
-  cinemachineController: {fileID: 2410549712588930097}
+  vFXController: {fileID: 2410549712588930097}
   timeWaitingDamage: 5
   isInteracting: 0
   attackAir: 0
   isStealth: 0
   canDoCombo: 0
   isInvulnerable: 0
-  IsActive: 1
+  isActive: 1
+  isDying: 0
 --- !u!114 &2410549712588930098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +112,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f714109e99c4a4cbb3b3b6fa8dc7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freeAim: {fileID: 0}
-  lookspeed: 0
+  Camera: {fileID: 0}
+  postProcessings:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  volume: {fileID: 0}
+  chromaticAberration: {fileID: 0}
+  vignette: {fileID: 0}
 --- !u!136 &7570815809184895414
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -722,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8e36d497b6bff489f65b359fe86164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
+  healt: 0
 --- !u!4 &4492861941938139471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}

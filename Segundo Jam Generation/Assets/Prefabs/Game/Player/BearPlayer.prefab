@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2410549712588930099}
   - component: {fileID: 2410549712588930098}
   - component: {fileID: 2410549712588930097}
-  - component: {fileID: 1417082255359561467}
+  - component: {fileID: 7570815809184895414}
   m_Layer: 0
   m_Name: BearPlayer
   m_TagString: Untagged
@@ -65,15 +65,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ff98e56fdd63a4093b90171990369b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healtController: {fileID: 2410549712588930101}
   moveController: {fileID: 2410549712588930098}
   animationController: {fileID: 2410549712588930100}
-  cinemachineCamera: {fileID: 2410549712588930097}
-  healt: {fileID: 2410549712588930101}
+  cinemachineController: {fileID: 2410549712588930097}
   timeWaitingDamage: 5
+  isInteracting: 0
+  attackAir: 0
+  isStealth: 0
+  canDoCombo: 0
   isInvulnerable: 0
   IsActive: 1
-  currentTimeSpawn: 0
-  timeAttack: 10
 --- !u!114 &2410549712588930098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,17 +89,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
-  m_jumpForce: 4
+  m_jumpForce: 5
   m_rigidBody: {fileID: 3597275475981461486}
   m_currentDirection: {x: 0, y: 0, z: 0}
   m_jumpTimeStamp: 0
   m_minJumpInterval: 0.25
   m_jumpInput: 0
   m_isGrounded: 0
-  m_wasGrounded: 0
-  m_moveSpeedV: 0
+  m_collisions: []
   m_turnSpeed: 10
-  speedRoll: 0
+  speeIsInteracting: 0
 --- !u!114 &2410549712588930097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,8 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   freeAim: {fileID: 0}
   lookspeed: 0
---- !u!65 &1417082255359561467
-BoxCollider:
+--- !u!136 &7570815809184895414
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -122,9 +123,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 3.5424166}
-  m_Center: {x: -9.0051766e-10, y: 1.0305653, z: -0.14232554}
+  m_Radius: 0.6
+  m_Height: 3.52
+  m_Direction: 2
+  m_Center: {x: 0.09, y: 0.69, z: 0.08}
 --- !u!1001 &4166783330066716324
 PrefabInstance:
   m_ObjectHideFlags: 0

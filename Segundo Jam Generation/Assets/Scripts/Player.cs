@@ -4,41 +4,60 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
+    [Header("PlayerComponents")]
+    public PlayerHealt healtController;
     public PlayerMovement moveController;
     public PlayerAnimation animationController;
     /// <summary>
     /// Controlador de camara de cinemachine
     /// </summary>
-    public CinemachineControllerCamera cinemachineCamera;
-    public PlayerHealt healt;
-    public float timeWaitingDamage = 5;
+    public VFXController vFXController;
+
+    [Header("PlayerStats")]
+    public float timeWaitingDamage = 1f;
+
+    [Header("PlayerStatesMachine")]
+    public bool isInteracting;
+    public bool attackAir;
+    public bool isStealth;
+    public bool canDoCombo;
     public bool isInvulnerable;
-    public bool IsActive;
-    public int currentTimeSpawn;
-    public int timeAttack;
+    public bool isActive;
+    public bool isDying;
 
-    
-    private void Update()
+    private void FixedUpdate()
     {
-        if (IsActive)
+        if (!isActive)
             return;
-        
-        moveController.HandleActions();
 
-        if (healt.life <= 0)
+        moveController.DirectUpdate();
+
+        if (healtController.healt <= 0)
         {
-            Dead();
+            Death();
         }
     }
 
-    void Dead()
+    private void Update()
     {
-        animationController.SendAnimationReaction(2);
-        IsActive = false;
+        isInteracting = animationController.m_animator.GetBool("IsInteracting");
+        canDoCombo = animationController.m_animator.GetBool("CanDoCombo");
+        animationController.m_animator.SetBool("Stealth", isStealth);
+        attackAir = animationController.m_animator.GetBool("AttackAir");
+        moveController.HandleActions();
+    }
+
+    void Death()
+    {
+        animationController.m_animator.SetBool("Death",true);
+        isActive = false;
     }
 
     public IEnumerator DamagePlayer()
     {
+        animationController.m_animator.SetTrigger("Damage");
+        animationController.m_animator.SetBool("IsInteracting", true);
+        vFXController.SettupEffectHealth();
         yield return new WaitForSeconds(timeWaitingDamage);
         isInvulnerable = false;
     }

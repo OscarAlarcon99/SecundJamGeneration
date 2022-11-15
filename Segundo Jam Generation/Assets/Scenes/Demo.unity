@@ -15476,12 +15476,15 @@ MonoBehaviour:
   attack: {fileID: 1033840981}
   idle: {fileID: 394514416}
   healt: 100
+  damage: 0
   anim: {fileID: 1120128596}
   wolf: {fileID: 1120128592}
   pointsWolf:
   - {fileID: 153533956}
   - {fileID: 2065356911}
   - {fileID: 1574558824}
+  damageState: {fileID: 0}
+  isActivate: 1
 --- !u!135 &1120128595
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class AttackState : State
     public float currentAttackTime;
     public override State RunCurrentState()
     {   
-      if(brain.playerPosition != null)
+      if(brain.playerPosition != null || brain.damage)
       {
         currentAttackTime++;
         brain.wolf.SetDestination(brain.playerPosition.transform.position);
@@ -24,7 +24,16 @@ public class AttackState : State
       }
       else
       {
-        return brain.idle;
+        if(brain.damage)
+        {       
+            brain.damage = false;
+             return brain.damageState;
+        }
+       
+       else
+       {
+            return brain.idle;
+       }
       }
       
        

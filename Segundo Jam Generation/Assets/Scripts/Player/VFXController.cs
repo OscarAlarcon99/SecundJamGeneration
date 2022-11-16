@@ -28,39 +28,35 @@ public class VFXController : MonoBehaviour
 
     public void ChangeEffectHealth()
     {
-        if (Player.Instance.healtController.healt < 100 && Player.Instance.healtController.healt > 75)
+        if (Player.Instance.healtController.healt < 100 && Player.Instance.healtController.healt > 90)
         {
             vignette.intensity.value = 0;
             chromaticAberration.intensity.value = 0;
         }
-        
+        if (Player.Instance.healtController.healt > 75 && Player.Instance.healtController.healt > 90)
+        {
+            vignette.intensity.value = 0.2f;
+            chromaticAberration.intensity.value = 0.2f;
+        }
+
         if (Player.Instance.healtController.healt < 75 && Player.Instance.healtController.healt > 50)
         {
-            vignette.intensity.value = 0.5f;
-            chromaticAberration.intensity.value = 0.5f;
+            vignette.intensity.value = 0.3f;
+            chromaticAberration.intensity.value = 0.3f; 
         }
         
         if (Player.Instance.healtController.healt < 50 && Player.Instance.healtController.healt > 25)
         {
-            vignette.intensity.value = 0.6f;
-            chromaticAberration.intensity.value = 0.6f;
+            vignette.intensity.value = 0.4f;
+            chromaticAberration.intensity.value = 0.75f;
         }
         
         if (Player.Instance.healtController.healt < 25)
         {
-            vignette.intensity.value = 0.7f;
-            chromaticAberration.intensity.value = 0.7f;
+            vignette.intensity.value = 0.5f;
+            chromaticAberration.intensity.value = 1f;
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ChangePostProccesing();
-        }
-    }
-
     public void ChangePostProccesing()
     {
         if (index == postProcessings.Length - 1)
@@ -71,12 +67,13 @@ public class VFXController : MonoBehaviour
         {
             index++;
         }
-
+        
         for (int i = 0; i < postProcessings.Length; i++)
         {
             if (i == index)
             {
                 postProcessings[i].gameObject.SetActive(true);
+                SettupEffectHealth();
             }
             else
             {
@@ -84,6 +81,5 @@ public class VFXController : MonoBehaviour
             }
         }
 
-        SettupEffectHealth();
     }
 }

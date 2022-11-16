@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
     public float speeIsInteracting;
 
     private bool comboFlag;
+    public bool canEat;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -184,7 +185,6 @@ public class PlayerMovement : MonoBehaviour
 
         // envio a controlador de animacion del bool si toca el piso 
         Player.Instance.animationController.m_animator.SetBool("Grounded", m_isGrounded);
-        Debug.Log("isgrounded" + m_isGrounded);
 
         //Actualizacion de bool de aire
         m_wasGrounded = m_isGrounded;
@@ -193,8 +193,9 @@ public class PlayerMovement : MonoBehaviour
         m_jumpInput = false;
 
         if (Input.GetButtonDown("Jump") && m_isGrounded &&
-            !Player.Instance.isInteracting)
+            !Player.Instance.isInteracting && !Player.Instance.isStealth)
         {
+            SoundManager.Instance.PlayNewSound("Jump");
             m_jumpInput = true;
         }
 
@@ -202,11 +203,11 @@ public class PlayerMovement : MonoBehaviour
 
         #region Control de Attackes
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !Player.Instance.isStealth)
         {
-
             if (!m_isGrounded && !Player.Instance.attackAir)
             {
+                SoundManager.Instance.PlayNewSound("AttackPlayer"); 
                 Player.Instance.animationController.m_animator.SetBool("AttackAir", true);
                 Player.Instance.animationController.m_animator.SetInteger("AttackIndex", 0);
                 Player.Instance.animationController.m_animator.SetTrigger("Attack");
@@ -224,6 +225,7 @@ public class PlayerMovement : MonoBehaviour
                 if (Player.Instance.animationController.m_animator.GetBool("IsInteracting") || 
                     Player.Instance.attackAir || Player.Instance.canDoCombo) return;
 
+                SoundManager.Instance.PlayNewSound("AttackPlayer");
                 Player.Instance.animationController.m_animator.SetBool("IsInteracting", true);
                 Player.Instance.animationController.m_animator.SetInteger("AttackIndex", 1);
                 Player.Instance.animationController.m_animator.SetTrigger("Attack");
@@ -236,21 +238,33 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Tab))
         {
-            Debug.Log("XD");
-            ChangeVelocity(!Player.Instance.isStealth);
+            ChangeVelocity(true);
         }
-        else
+       else
         {
-            ChangeVelocity(Player.Instance.isStealth);
+            ChangeVelocity(false);
         }
 
         #endregion
+
+        if (Input.GetKey(KeyCode.E) && canEat && !Player.Instance.isStealth)
+        {
+            Debug.Log("SSSS");
+            //Player.Instance.animationController.m_animator.SetBool("IsInteracting", true);
+            Player.Instance.animationController.m_animator.SetBool("Eat", true);
+        }
+        else
+        {
+            //Player.Instance.animationController.m_animator.SetBool("IsInteracting", false);
+            Player.Instance.animationController.m_animator.SetBool("Eat", false);
+        }
     }
 
     void AttackCombo()
     {
         if (comboFlag)
         {
+            SoundManager.Instance.PlayNewSound("AttackPlayer");
             Player.Instance.animationController.m_animator.SetBool("CanDoCombo", false);
 
             if (Player.Instance.animationController.m_animator.GetInteger("AttackIndex") == 1)
@@ -275,23 +289,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!stealthState)
         {
-            moveSpeed = 12;
+            moveSpeed = 10;
             Player.Instance.isStealth = false;
         }
         else
         {
-            moveSpeed = 5;
+            moveSpeed = 1;
             Player.Instance.isStealth = true;
         }
-    }
-
-
-    /// <summary>
-    /// Funcion encargada de activar punto de daño en attack
-    /// </summary>
-    public void ChangeAttackPointState()
-    {
-
     }
 
     /// <summary>

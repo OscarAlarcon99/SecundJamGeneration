@@ -5,28 +5,41 @@ using UnityEngine;
 public class PlayerHealt : MonoBehaviour
 {
     public float healt;
-    
+    private int currentTime;
+    public float timeHungry;
     // Start is called before the first frame update
     void Start()
     {
-        healt = 100;    
+        healt = 100;
+        StartCoroutine(Hunger()); 
     }
-    private void Update()
+   
+    public IEnumerator Hunger()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        while (healt >= 0)
         {
-            Player.Instance.isInvulnerable = true;
-            healt -= 20;
-            StartCoroutine(Player.Instance.DamagePlayer());
-        }    
+            yield return new WaitForSecondsRealtime(timeHungry);
+            healt -= Time.deltaTime;
+            Player.Instance.vFXController.SettupEffectHealth();
+        }
     }
+
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && !Player.Instance.isInvulnerable)
+        if (!Player.Instance.isActive)
+            return;
+
+        if (other.CompareTag("Winner"))
         {
+            StartCoroutine(GameManager.Instance.Winner());
+        }
+
+        if (other.CompareTag("enemyAttackPoint") && !Player.Instance.isInvulnerable)
+        {
+            SoundManager.Instance.PlayNewSound("DamagePlayer");
             Player.Instance.isInvulnerable = true;
-            healt -= 20;
+            healt -= 15;
             StartCoroutine(Player.Instance.DamagePlayer());
         }
     }

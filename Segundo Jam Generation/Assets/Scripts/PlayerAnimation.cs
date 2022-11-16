@@ -8,7 +8,20 @@ public class PlayerAnimation : MonoBehaviour
     /// Controlador de animaciones
     /// </summary>
     public Animator m_animator;
+
+    /// <summary>
+    /// Funcion encargada de activar punto de daño en attack
+    /// </summary>
+    public void ChangeAttackPointStateTrue(int index)
+    {
+        Player.Instance.pointAttack[index].SetActive(true);
+    }
     
+    public void ChangeAttackPointStateFalse(int index)
+    {
+        Player.Instance.pointAttack[index].SetActive(false);
+    }
+
     public void CanDoComboState(int value)
     {
         if (value == 0)

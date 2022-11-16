@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18f96a7067ba7eb4b9d921ab3d507da2, type: 3}
-  m_Name: SadBackGround
+  m_Name: DeathRabbit
   m_EditorClassIdentifier: 
   volume: 1
   pitch: 1
-  song: {fileID: 8300000, guid: 9f91a45d1289c3b42924ff386ff93ca4, type: 3}
-  playOnAwake: 1
-  loop: 1
-  mixerGroup: {fileID: 8936691807230622006, guid: 95f3faaee53613348bbc5fbd4aa93015, type: 2}
+  song: {fileID: 8300000, guid: 8ff051cadafef9242939e4172ccbae53, type: 3}
+  playOnAwake: 0
+  loop: 0
+  mixerGroup: {fileID: 1012646177472440585, guid: 2e4ebcb9034f2a34e89b61573685c30a, type: 2}
   source: {fileID: 0}
   levelSound: 1
   musicType: 1

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ScenesManager : Singleton<ScenesManager>
 {
@@ -48,8 +49,14 @@ public class ScenesManager : Singleton<ScenesManager>
     /// <value>Nombre de la escena.</value>
     public string CurrentLevelName { get { return _currentLevelName; } }
 
+    public GameObject panelSubs;
+    public GameObject panelWinner;
+    public GameObject panelLosser;
+    public GameObject panelRuler;
+    public GameObject panelUI;
     public GameObject pausePanel;
     public GameObject sceneObject;
+    
 
     /// <summary>
     /// Propiedad que retorna el estado de ejecución (T&F). 
@@ -184,6 +191,7 @@ public class ScenesManager : Singleton<ScenesManager>
             case "Demo":
                 sceneObject.SetActive(false);
                 SoundManager.Instance.CreateSoundsLevel(MusicLevel.GAME);
+                SoundManager.Instance.PlayNewSound("LevelBackGround");
                 break;
         }
     }
@@ -207,10 +215,12 @@ public class ScenesManager : Singleton<ScenesManager>
 
         if (is_pause)
         {
+            Cursor.visible = true;
             Time.timeScale = 0.0f;
         }
         else
         {
+            Cursor.visible = false;
             Time.timeScale = 1;
         }
     }

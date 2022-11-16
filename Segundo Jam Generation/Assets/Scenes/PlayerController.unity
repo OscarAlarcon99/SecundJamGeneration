@@ -734,62 +734,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1232764300}
     - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: volume
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogSystem
-      value: 
-      objectReference: {fileID: 907294471}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[0].a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[0].b
-      value: 0.98039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[0].g
-      value: 0.98039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[0].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[1].b
-      value: 0.98039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[1].g
-      value: 0.98039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[1].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[2].b
-      value: 0.98039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[2].g
-      value: 0.98039216
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: fogColors.Array.data[2].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: postProcessings.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
       propertyPath: postProcessings.Array.data[0]
       value: 
       objectReference: {fileID: 487249514}
@@ -801,14 +745,6 @@ PrefabInstance:
       propertyPath: postProcessings.Array.data[2]
       value: 
       objectReference: {fileID: 632489197}
-    - target: {fileID: 2410549712588930099, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: isActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2410549712588930099, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-      propertyPath: vFXController
-      value: 
-      objectReference: {fileID: 596015516}
     - target: {fileID: 4807023832233405397, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
       propertyPath: m_Name
       value: BearPlayer
@@ -864,17 +800,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5291936724941722517, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
   m_PrefabInstance: {fileID: 596015513}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &596015516 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2410549712588930097, guid: c885d69f6e2c70b42a0594453d59e53a, type: 3}
-  m_PrefabInstance: {fileID: 596015513}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f714109e99c4a4cbb3b3b6fa8dc7b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &621902092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,11 +1362,6 @@ Transform:
   m_Father: {fileID: 745950447}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &907294471 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3329838656119181343, guid: d85b5c83223b763488029fe160a21c95, type: 3}
-  m_PrefabInstance: {fileID: 9150919154230393096}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1127432223
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -92,12 +92,26 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.23531055
+        functionName: ChangeAttackPointStateTrue
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.35813954
         functionName: CanDoComboState
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
         floatParameter: 0
         intParameter: 1
+        messageOptions: 0
+      - time: 0.4306042
+        functionName: ChangeAttackPointStateFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       - time: 0.6728052
         functionName: CanDoComboState

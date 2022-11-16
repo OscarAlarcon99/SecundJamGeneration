@@ -12,6 +12,7 @@ public class Player : Singleton<Player>
     /// Controlador de camara de cinemachine
     /// </summary>
     public VFXController vFXController;
+    public GameObject[] pointAttack;
 
     [Header("PlayerStats")]
     public float timeWaitingDamage = 1f;
@@ -24,7 +25,7 @@ public class Player : Singleton<Player>
     public bool isInvulnerable;
     public bool isActive;
     public bool isDying;
-
+    public bool isEating;
     private void FixedUpdate()
     {
         if (!isActive)
@@ -44,12 +45,32 @@ public class Player : Singleton<Player>
         canDoCombo = animationController.m_animator.GetBool("CanDoCombo");
         animationController.m_animator.SetBool("Stealth", isStealth);
         attackAir = animationController.m_animator.GetBool("AttackAir");
+        isEating = animationController.m_animator.GetBool("Eat");
         moveController.HandleActions();
+
+        if (moveController.canEat)
+        {
+            ScenesManager.Instance.panelSubs.SetActive(true);
+        }
+        else
+        {
+            ScenesManager.Instance.panelSubs.SetActive(false);
+        }
+
+    }
+
+    public void GetFoot()
+    {
+        SoundManager.Instance.PlayNewSound("GetItem"); 
+        moveController.canEat = false;
+        healtController.healt += 25;
     }
 
     void Death()
     {
+        SoundManager.Instance.PlayNewSound("DeathPlayer"); 
         animationController.m_animator.SetBool("Death",true);
+        StartCoroutine(GameManager.Instance.Losser());
         isActive = false;
     }
 

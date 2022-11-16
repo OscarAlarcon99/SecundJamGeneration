@@ -10,38 +10,38 @@ public class StateManager : MonoBehaviour
     public State currenState;
     public AttackState attack;
     public IdleState idle;
+    public DamageState damageState;
     public float healt;
+    public bool isActivate;
     public bool damage;
     public Animator anim;
     public NavMeshAgent wolf;
     public Transform[] pointsWolf;
-    public DamageState damageState;
-    public bool isActivate;
-    
-  
-        void Start()
+    public GameObject pointAttack;
+    public Foot foot;
+
+    void Start()
     {
         wolf = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         healt = 100;
-        
     }
   
     void Update()
     {   
         if(!isActivate)
         {
+            currenState = null;
             return;
         }
-        RunstateMachine();
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            damage = true;
-            healt -= 20;
-            anim.SetBool("Damage", true);
-        }
-       // _wolf.SetDestination(point.position);
 
+        if (healt <= 0)
+        {
+            Debug.Log("mori");
+            Death();
+        }
+
+        RunstateMachine();
     }
 
     private void RunstateMachine()
@@ -64,38 +64,39 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    public void ChangeAttackPointStateTrue()
+    {
+        pointAttack.SetActive(true);
+    }
+
+    public void ChangeAttackPointStateFalse()
+    {
+        pointAttack.SetActive(false);
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
-
         if(other.CompareTag("Player") && playerPosition == null )
         {   
           playerPosition = other.gameObject;
         }
-
-       
     }
 
     private void OnTriggerExit(Collider other) 
     {
         if(other.CompareTag("Player") && playerPosition != null )
         {   
-          playerPosition = null;
-        }
-    }
-
-    private void FixedUpdate()
-    {  
-        if (healt <= 0)
-        {
-            Death();
+            playerPosition = null;
         }
     }
      void Death()
-    {   
-
+    {
+        SoundManager.Instance.PlayNewSound("DeathEnemy");
         anim.SetTrigger("Death");
+        ChangeAttackPointStateFalse();
         isActivate =false;
-        
+        foot.enabled = true;
+        this.enabled = false;
     }
-
 }

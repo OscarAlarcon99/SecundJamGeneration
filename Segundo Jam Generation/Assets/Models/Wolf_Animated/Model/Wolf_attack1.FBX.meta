@@ -302,7 +302,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.42833707
+        functionName: ChangeAttackPointStateTrue
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 5d22486235818394b971f702e7fe35f2, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.773047
+        functionName: ChangeAttackPointStateFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 5d22486235818394b971f702e7fe35f2, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -452,7 +466,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.005
+    globalScale: 0.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

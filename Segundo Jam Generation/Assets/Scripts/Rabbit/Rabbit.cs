@@ -6,71 +6,71 @@ using UnityEngine.AI;
 public class Rabbit : MonoBehaviour
 {
     private NavMeshAgent _agent;
-    public GameObject Player;
+    public Foot foot;
+    public GameObject player;
     public float EnemyDistanceRun = 18.0f;
     public float preventionDistance = 50.0f;
     private Animator anim;
     public Transform arrive;
-    //public bool isActivated;
     public GameObject rabbitOff;
-    
+    float distance;
 
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        //isActivated = true;
     }
 
    
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, Player.transform.position);
-          
-
+        if (player != null)
+        {
+            distance = Vector3.Distance(transform.position, player.transform.position);
         //Corre del player
-        if(distance < EnemyDistanceRun)
-        {
-            Vector3 dirToPlayer = transform.position - Player.transform.position;
-            Vector3 newPos = transform.position + dirToPlayer;
-            _agent.SetDestination(newPos);
-            anim.SetFloat("MoveSpeed", 1);
-
-          
-            
+            if (distance < EnemyDistanceRun)
+            {
+                if (!Player.Instance.isStealth)
+                {
+                    Vector3 dirToPlayer = transform.position - player.transform.position;
+                    Vector3 newPos = transform.position + dirToPlayer;
+                    _agent.SetDestination(newPos);
+                    anim.SetFloat("MoveSpeed", 1);
+                }
+            }
         }
-
-        if (distance > preventionDistance)
+        else
         {
-             _agent.SetDestination(arrive.position);
+            distance = Vector3.Distance(transform.position, arrive.position);
+
+            if (distance > preventionDistance)
+            {
+                _agent.SetDestination(arrive.position);
+            }
         }
-
-      
-
-   
- 
     }
 
     private void OnTriggerEnter(Collider other) {
 
         if(other.gameObject.tag== "Player")
-        {   
-            Die();
-            //EnemyDistanceRun = 0;
-            //isActivated =false;
-            //gameObject.SetActive(false);
-            this.enabled = false;
-          
-            
+        {
+            player = other.gameObject;
         }
-
-        
     }
+    private void OnTriggerExit(Collider other)
+    {
 
+        if (other.gameObject.tag == "Player")
+        {
+            player = null;
+        }
+    }
+    
     public void Die()
     {
-        //isActivated = false;
+        SoundManager.Instance.PlayNewSound("DeathRabbit");
         anim.SetBool("Dead", true);
-
+        foot.enabled = true;
+        this.enabled = false;
     }
 }

@@ -49,6 +49,7 @@ public class ScenesManager : Singleton<ScenesManager>
     /// <value>Nombre de la escena.</value>
     public string CurrentLevelName { get { return _currentLevelName; } }
 
+    public GameObject panelInformative;
     public GameObject panelSubs;
     public GameObject panelWinner;
     public GameObject panelLosser;
@@ -56,7 +57,7 @@ public class ScenesManager : Singleton<ScenesManager>
     public GameObject panelUI;
     public GameObject pausePanel;
     public GameObject sceneObject;
-    
+    public GameObject playerHealt;
 
     /// <summary>
     /// Propiedad que retorna el estado de ejecución (T&F). 
@@ -123,6 +124,12 @@ public class ScenesManager : Singleton<ScenesManager>
             _loadOperations.Remove(ao);
 
         Debug.Log("[GameManager] Escena descargada completamente");
+    }
+
+    public void RestartMainMenu()
+    {
+        Cursor.visible = true;
+        SceneManager.LoadScene("Boot");
     }
 
     /// <summary>

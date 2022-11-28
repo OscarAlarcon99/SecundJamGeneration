@@ -92,6 +92,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.41581732
+        functionName: ChangeAttackPointStateFalse
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.41666666
         functionName: ChangeAttackPointStateTrue
         data: 
@@ -99,12 +106,12 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.41911766
+      - time: 0.42244226
         functionName: ChangeAttackPointStateTrue
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 2
         messageOptions: 0
       - time: 0.57843137
         functionName: ChangeAttackPointStateFalse
@@ -119,6 +126,13 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
         floatParameter: 0
         intParameter: 1
+        messageOptions: 0
+      - time: 0.5874587
+        functionName: ChangeAttackPointStateTrue
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
+        floatParameter: 0
+        intParameter: 2
         messageOptions: 0
       transformMask: []
       maskType: 3

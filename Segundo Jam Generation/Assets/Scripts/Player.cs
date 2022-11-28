@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Singleton<Player>
 {
@@ -13,7 +14,6 @@ public class Player : Singleton<Player>
     /// </summary>
     public VFXController vFXController;
     public GameObject[] pointAttack;
-
     [Header("PlayerStats")]
     public float timeWaitingDamage = 1f;
 
@@ -48,16 +48,20 @@ public class Player : Singleton<Player>
         isEating = animationController.m_animator.GetBool("Eat");
         moveController.HandleActions();
 
-        if (moveController.canEat)
+        if (ScenesManager.Instance.playerHealt.gameObject.activeInHierarchy)
         {
-            ScenesManager.Instance.panelSubs.SetActive(true);
+            ScenesManager.Instance.playerHealt.gameObject.GetComponent<Slider>().value = healtController.healt;
         }
-        else
-        {
-            ScenesManager.Instance.panelSubs.SetActive(false);
-        }
-
     }
+
+
+    public IEnumerator ChangePanelSubs()
+    {
+        ScenesManager.Instance.panelSubs.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        ScenesManager.Instance.panelSubs.SetActive(false);
+    }
+
 
     public void GetFoot()
     {

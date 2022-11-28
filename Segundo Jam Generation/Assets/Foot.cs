@@ -8,6 +8,15 @@ public class Foot : MonoBehaviour
     public float finalTime;
     public float lifeExtra;
 
+    private void Start()
+    {
+        if (!Player.Instance.moveController.canEat)
+        {
+            Player.Instance.moveController.canEat = true;
+            StartCoroutine(Player.Instance.ChangePanelSubs());
+        }
+    }
+
     void Update()
     {
         if (Player.Instance.moveController.canEat && Player.Instance.isEating)
@@ -23,11 +32,4 @@ public class Foot : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player") && this.enabled)
-        {
-            Player.Instance.moveController.canEat = true;
-        }
-    }
 }

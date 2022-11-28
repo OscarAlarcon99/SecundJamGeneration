@@ -200,11 +200,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-
         #region Control de Attackes
 
-        if (Input.GetButtonDown("Fire1") && !Player.Instance.isStealth)
+        if (Input.GetButtonDown("Fire1") )
         {
+            if (Player.Instance.isStealth)
+            {
+                Player.Instance.isStealth = false;
+            }
+
             if (!m_isGrounded && !Player.Instance.attackAir)
             {
                 SoundManager.Instance.PlayNewSound("AttackPlayer"); 
@@ -236,9 +240,16 @@ public class PlayerMovement : MonoBehaviour
 
         #region Control de Sigilo
 
-        if (Input.GetKey(KeyCode.Tab))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            ChangeVelocity(true);
+            if (!Player.Instance.isInteracting)
+            {
+                ChangeVelocity(true);
+            }
+            else
+            {
+                ChangeVelocity(false);
+            }
         }
        else
         {
@@ -247,17 +258,18 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
-        if (Input.GetKey(KeyCode.E) && canEat && !Player.Instance.isStealth)
+        #region Control de Eating
+        if (Input.GetKey(KeyCode.E) && !Player.Instance.isStealth && canEat)
         {
-            Debug.Log("SSSS");
-            //Player.Instance.animationController.m_animator.SetBool("IsInteracting", true);
+            Player.Instance.animationController.m_animator.SetBool("IsInteracting", true);
             Player.Instance.animationController.m_animator.SetBool("Eat", true);
         }
         else
         {
-            //Player.Instance.animationController.m_animator.SetBool("IsInteracting", false);
             Player.Instance.animationController.m_animator.SetBool("Eat", false);
         }
+
+        #endregion
     }
 
     void AttackCombo()

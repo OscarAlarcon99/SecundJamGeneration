@@ -28,33 +28,34 @@ public class VFXController : MonoBehaviour
 
     public void ChangeEffectHealth()
     {
-        if (Player.Instance.healtController.healt < 100 && Player.Instance.healtController.healt > 90)
+        if (Player.Instance.healtController.healt > 90)
         {
+            Debug.Log("sssssaaa");
             vignette.intensity.value = 0;
             chromaticAberration.intensity.value = 0;
         }
-        if (Player.Instance.healtController.healt > 75 && Player.Instance.healtController.healt > 90)
+        if (Player.Instance.healtController.healt < 75 && Player.Instance.healtController.healt > 90)
         {
-            vignette.intensity.value = 0.2f;
-            chromaticAberration.intensity.value = 0.2f;
+            vignette.intensity.value = 0.3f;
+            chromaticAberration.intensity.value = 0.3f;
         }
 
         if (Player.Instance.healtController.healt < 75 && Player.Instance.healtController.healt > 50)
         {
-            vignette.intensity.value = 0.3f;
-            chromaticAberration.intensity.value = 0.3f; 
+            vignette.intensity.value = 0.4f;
+            chromaticAberration.intensity.value = 0.4f; 
         }
         
         if (Player.Instance.healtController.healt < 50 && Player.Instance.healtController.healt > 25)
         {
-            vignette.intensity.value = 0.4f;
-            chromaticAberration.intensity.value = 0.75f;
+            vignette.intensity.value = 0.5f;
+            chromaticAberration.intensity.value = 0.5f;
         }
         
         if (Player.Instance.healtController.healt < 25)
         {
-            vignette.intensity.value = 0.5f;
-            chromaticAberration.intensity.value = 1f;
+            vignette.intensity.value = 0.6f;
+            chromaticAberration.intensity.value = 0.6f;
         }
     }
     public void ChangePostProccesing()
@@ -67,19 +68,14 @@ public class VFXController : MonoBehaviour
         {
             index++;
         }
-        
+            Debug.Log("Cambio" + index);
+
         for (int i = 0; i < postProcessings.Length; i++)
         {
-            if (i == index)
-            {
-                postProcessings[i].gameObject.SetActive(true);
-                SettupEffectHealth();
-            }
-            else
-            {
-                postProcessings[i].gameObject.SetActive(false);
-            }
+            postProcessings[i].gameObject.SetActive(false); 
         }
 
+        postProcessings[index].gameObject.SetActive(true);
+        SettupEffectHealth();
     }
 }

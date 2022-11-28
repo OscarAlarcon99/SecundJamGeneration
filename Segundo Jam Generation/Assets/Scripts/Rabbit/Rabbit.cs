@@ -68,8 +68,10 @@ public class Rabbit : MonoBehaviour
     
     public void Die()
     {
-        SoundManager.Instance.PlayNewSound("DeathRabbit");
         anim.SetBool("Dead", true);
+        _agent.Stop();
+        _agent.ResetPath();
+        SoundManager.Instance.PlayNewSound("DeathRabbit");
         foot.enabled = true;
         this.enabled = false;
     }

@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class PlayerHealt : MonoBehaviour
 {
+    public float timeStart;
     public float healt;
-    private int currentTime;
-    public float timeHungry;
+    public float damage;
     // Start is called before the first frame update
     void Start()
     {
         healt = 100;
-        StartCoroutine(Hunger()); 
-    }
-   
-    public IEnumerator Hunger()
-    {
-        while (healt >= 0)
-        {
-            yield return new WaitForSecondsRealtime(timeHungry);
-            healt -= Time.deltaTime;
-            Player.Instance.vFXController.SettupEffectHealth();
-        }
+        StartCoroutine(CountDownLife());
     }
 
+    public IEnumerator CountDownLife()
+    {
+        yield return new WaitForSeconds(timeStart);
+        Debug.Log("GettingDamage");
+        Player.Instance.healtController.healt -= damage;
+        RestartCountDown();
+    }
+
+    public void RestartCountDown()
+    {
+        StartCoroutine(CountDownLife());
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -39,7 +41,7 @@ public class PlayerHealt : MonoBehaviour
         {
             SoundManager.Instance.PlayNewSound("DamagePlayer");
             Player.Instance.isInvulnerable = true;
-            healt -= 15;
+            healt -= 20;
             StartCoroutine(Player.Instance.DamagePlayer());
         }
     }

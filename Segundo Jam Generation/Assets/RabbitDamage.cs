@@ -10,7 +10,6 @@ public class RabbitDamage : MonoBehaviour
     {
         if (other.CompareTag("PlayerAttackPoint"))
         {
-            Debug.Log("aaaa");
             brain.Die();
         }
     }

@@ -99,7 +99,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: 0.36519608
+      - time: 0.70182973
         functionName: ChangeAttackPointStateFalse
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: c2a936b9ecb45954aa449b33dfa1a8e4, type: 3}
